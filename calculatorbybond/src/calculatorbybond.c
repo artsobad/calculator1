@@ -4,84 +4,156 @@
  Author      : Nikita Bondarev
  ============================================================================
  */
-#include <stdio.h>
-#include <math.h>
+#include <stdio.h>  
+#include <stdlib.h> 
 
-int main()
+int main() 
 {
+    setvbuf(stdout, NULL, _IONBF, 0); 
+    setvbuf(stderr, NULL, _IONBF, 0); 
 
-    float x,y,z;  // Используемые переменные.
-    char m,n;
-    long int p=1;
+    float a, b, *c, *d, res, g;
+    char y, x, z, t;
+    int res1, i, j;
+    do
+    {
+        printf("Do you want to use algebra or vector calculator? (a/v):\n "); // выборка для пользователя между числами и векторами
+        scanf(" %c", &x);                                                    
+        switch (x)
+        {
+        case 'a':      // первый блок работы с числами
 
-     do {printf("Enter the first number:\n");  // Запрос на введение первого числа.
-        scanf("%f",&x);
+            printf("Enter the first number:\n");  // Запрос на введение первого числа.
+            scanf("%f", &a);
+            printf("Enter operation (- + / * ^ !):\n");  // Виды возможных операций, предоставленных пользователю.
+            scanf(" %c", &z);
 
-    printf("What operation do you want to use?\n");
-    printf("Possible operations: +,-,*,/,!,^\n"); // Виды возможных операций, предоставленных пользователю.
-    scanf("%s",&m);
+            if (z == '!') 
+            {
+                if (a < 0) 
+                {
+                    printf("Error \n");
+                }
+                else if (a == 0)
+                {
+                    printf("Result:  \n"); 
+                }
+                else if (a - (int)a != 0) 
+                {
+                    printf("You can't use factorial of this number \n");
+                }
+                else if (a != 0) //
+                {
+                    res1 = 1;
+                    for (int r = 1; r <= a; r++)
+                    {
+                        res1 *= r;
+                    }
+                    printf("Result: %i \n", res1);
+                }
+            }
+            else
+            {
+                printf("Enter second number: \n");  // Запрос на введение второго числа.
+                scanf("%f", &b);
+                switch (z)                          
+                {
+                case '+':
+                    printf("Result %f: \n", a + b);
+                    break;
+                case '-':
+                    printf("Result %f: \n", a - b);
+                    break;
+                case '/':
+                    printf("Result %f: \n", a / b);
+                    break;
+                case '*':
+                    printf("Result %f: \n", a * b);
+                    break;
+                case '^':
+                    g = 1;
+                    if (b < 0)
+                    {
+                        for (int i = 0; i > b; i--)
+                        {
+                            g = g * a;
+                        }
+                        res = 1 / g;
+                    }
+                    else if (b == 0)
+                    {
+                        res = 1;
+                    }
+                    else if (b - (int)b != 0)
+                    {
+                        printf("Error \n");
+                    }
+                    else
+                    {
+                        for (int i = 1; i <= b; i++)
+                        {
+                            g = g * a;
+                        }
+                        res = g;
+                    }
+                    printf("Result: %f \n", res);
+                    break;
+                default:
+                    printf("Error \n");
+                }
+            }
+            break;
 
-    if(m=='+'||m=='-'||m=='*'||m=='/')
-    { printf("Enter the second number:\n");  // Запрос на введение второго числа.
-      scanf("%f",&y);}
-      else if(m=='^')
-      { printf("Enter the degree:\n");
-      scanf("%f",&y);}
-
-
-       switch(m){
-        case '+':
-        z=x+y;
-        printf("%.3f\n",z);
-        break;
-        case '-':
-        z=x-y;
-        printf("%.3f\n",z);                         // Основной блок программы в котором происходит выполнение
-        break;                                      // выбранной пользователем операции.
-        case '*':
-        z=x*y;
-        printf("%.3f\n",z);
-        break;
-        case '/':
-        if(y==0)
-        printf("Cannot be divided by 0\n");
-        else{
-        z=x/y;
-        printf("%.5f\n",z);}
-        break;
-        case '!':
-           if(x<0)
-           printf("You entered a negative number.\n");
-           else if (x==0)                            // Вывод информации об некоректном запросе пользователя
-           printf("1\n");
-           else if (x==1)
-           printf("1\n");
-           else if(x-(int)x!=0)
-           printf("Fractional number used\n");
-           else {
-           for(float i=1; i<=x; i++)
-           {p=p*i;}
-           printf("%li\n",p);}
-        break;
-        case '^':
-        if(y==0){
-            printf("1\n");
+        case 'v':  // Второй основной блок программы для работы с векторами
+        {
+            printf("Enter size of vectors: \n");
+            scanf("%i", &i);
+            c=malloc((i-1) * sizeof(float));    
+            d=malloc((i-1) * sizeof(float));    
+            printf("Enter first vector: \n ");  
+            for (j = 0; j <= (i-1); j++)
+            {
+                scanf("%f", &c[j]);
+            }
+            printf("Enter operation (-+*): \n");
+            scanf(" %c", &t);
+            printf("Enter second vector: \n ");
+            for (j = 0; j <= (i-1); j++)       
+            {
+                scanf("%f", &d[j]);
+            }
+            switch (t)
+            {
+            case '-':
+                printf("Result: \n");
+                for (j = 0; j < i; j++)        
+                {
+                    printf("%f ", c[j]-d[j]);
+                }
+                break;
+            case '+':
+                printf("Result: \n");           
+                for (j = 0; j < i; j++)
+                {
+                    printf("%f ", c[j]+d[j]);
+                }
+                break;
+            case '*':                           
+                printf("Result: \n");
+                for (j = 0; j < i; j++)
+                {
+                    printf("%f ", c[j]*d[j]);
+                }
+                break;
+            default:
+                printf("Wrong operation");      
+            }
         }
-        else{
-        printf("%0.5f\n",pow(x,y));}
-        break;
-    }
-
-    printf("Do you want to continue? (y or n) \n");   // Вывод информации с возможностью продолжить или завершить
-    scanf("%s",&n);                                // процесс программы
-
-
-     while ((n != 'y') && (n !='n')){
-        printf("Do you want to continue? (y or n)\n");
-        scanf("%s",&n);}
-     }
-    while(n=='y');
-
-
+        }
+        printf("Do you want to continue? (y/n) \n");
+        scanf(" %c", &y);
+    } while (y == 'y');
+    free(c);
+    free(d);
     return 0;
 }
