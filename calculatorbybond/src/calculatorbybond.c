@@ -16,9 +16,9 @@ int main()
   	char y, x, z, t, input[50], output[50], yy;
   	int res1, i, j;
 
-	FILE *in, *out; //указываем на то, что у нас будут использоваться файлы
-	in = fopen("input.txt", "r"); //открываем файл 'input', из которого будем читать входные данные
-	out = fopen("output.txt", "w"); //открываем файл 'output', в который будем в дальнейшем записывать данные
+                FILE *in, *out; 
+		in = fopen(input, "r"); 
+		out = fopen(output, "w"); 
 do {
 		printf("Input input file name: \n");
 		scanf(" %s", &input);
